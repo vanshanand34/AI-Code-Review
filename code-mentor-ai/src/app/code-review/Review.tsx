@@ -136,19 +136,20 @@ export default function Home() {
 
             {/* Description Input */}
             <div className=''>
-              <div className='shadow-lg bg-white dark:bg-gray-800 border dark:border-[#ffffff88]'>
+              <div className='shadow-lg bg-white rounded-lg dark:bg-gray-800 border dark:border-[#ffffff88]'>
                 <label className="block px-4 md:px-8 py-2 pt-3 md:pt-6 text-base sm:text-lg md:text-xl font-medium text-gray-700 dark:text-white">
                   Description
                 </label>
-                <div className="min-h-[15vh]">
-                  <textarea
-                  rows={5}
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full min-h-[15vh] p-4 bg-gray-900 focus:outline-none focus:ring-0 focus:ring-blue-500 text-white text-xs sm:text-sm md:text-base"
-                    placeholder="Enter a description of your code..."
-                    required
-                  />
+                <div className="w-full ">
+                  <div className='min-h-[200px] bg-gray-900 rounded-b-md'>
+                    <textarea
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      className="w-full h-full resize-none min-h-[200px] p-4 bg-gray-900 focus:outline-none focus:ring-0 focus:ring-blue-500 text-white text-xs sm:text-sm md:text-base"
+                      placeholder="Enter a description of your code..."
+                      required
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -169,7 +170,7 @@ export default function Home() {
         {error && (
           <div className="mt-8">
             <div className="bg-red-700 text-white rounded-md p-4 flex justify-between items-center">
-              <p>{error}</p>
+              <p className='text-xs sm:text-sm md:text-base'>{error}</p>
               <span
                 className='text-xl md:text-3xl cursor-pointer hover:text-gray-300'
                 onClick={() => setError("")}

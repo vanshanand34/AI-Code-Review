@@ -17,6 +17,7 @@
     "next": "15.2.4",
     "next-themes": "^0.4.6",
     "openai": "^4.93.0",
+    "prism-themes": "^1.9.0",
     "prismjs": "^1.30.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -32,6 +33,7 @@
     "@types/react-dom": "^19",
     "@types/react-syntax-highlighter": "^15.5.13",
     "autoprefixer": "^10.4.21",
+    "babel-plugin-prismjs": "^2.1.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"

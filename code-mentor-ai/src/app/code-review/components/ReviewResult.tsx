@@ -16,7 +16,8 @@ const ReviewResult = (
 ) => {
     return <>
         {reviewResult && (
-            <div className="mt-8 bg-white dark:bg-gray-800 p-4 md:p-8 rounded-lg shadow-lg border">
+            <div className="mt-8 bg-white dark:bg-gray-800 p-4 md:p-8 rounded-lg shadow-lg 
+            border border-[#00000015] dark:border-[#fff7]">
 
                 <h2 className="text-2xl text-center font-bold text-gray-800 dark:text-white mb-6">
                     Code Review Results

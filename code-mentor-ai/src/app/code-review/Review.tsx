@@ -63,7 +63,10 @@ export default function Home() {
 
       const result = await response.json();
       const reviewData = result.data;
-
+      const refactoredCode = reviewData.refactoredCode;
+      if (refactoredCode.startsWith('```')) {
+        reviewData.refactoredCode = refactoredCode.slice(3);
+      }
 
       setReviewResult(reviewData);
     } catch (err) {
@@ -111,15 +114,16 @@ export default function Home() {
         </div>
 
         <div className="">
-          <div className="grid md:grid-cols-1 gap-y-4 md:gap-8">
+          <div className="grid md:grid-cols-1 gap-y-4 md:gap-8 w-full">
             {/* Syntax-highlighted Code Editor */}
-            <div className=' bg-white dark:bg-gray-800 shadow-lg rounded-lg border dark:border-[#ffffff88]'>
+            <div className='bg-white dark:bg-gray-800 shadow-lg rounded-lg 
+            border dark:border-[#ffffff88]'>
               <label
                 className="block text-base sm:text-lg md:text-xl px-4 md:px-8 py-1 pt-3 md:pt-4 font-medium text-gray-700 mb-2 dark:text-white"
               >
                 Code
               </label>
-              <div className="text-white min-h-[70vh]">
+              <div className="grid text-white min-h-[70vh] w-full overflow-x-scroll">
                 <Editor
                   value={formData.code}
                   onValueChange={(code) => setFormData({ ...formData, code })}
@@ -128,7 +132,8 @@ export default function Home() {
                   }
                   padding={16}
                   className={`focus:outline-0 outline-0 focus:border-0 focus:ring-0 rounded-b-md
-                  text-xs sm:text-sm md:text-base font-mono min-h-[70vh] bg-gray-900 language-${formData.language}`}
+                  text-xs sm:text-sm md:text-base font-mono min-h-[70vh] bg-gray-900 
+                  language-${formData.language} overflow-auto w-fit`}
                   placeholder="Enter your code here..."
                 />
               </div>
@@ -137,7 +142,7 @@ export default function Home() {
             {/* Description Input */}
             <div className=''>
               <div className='shadow-lg bg-white rounded-lg dark:bg-gray-800 border dark:border-[#ffffff88]'>
-                <label className="block px-4 md:px-8 py-2 pt-3 md:pt-6 text-base sm:text-lg md:text-xl font-medium text-gray-700 dark:text-white">
+                <label className="block px-2 md:px-8 py-3 md:pt-6 text-base sm:text-lg md:text-xl font-medium text-gray-700 dark:text-white">
                   Description
                 </label>
                 <div className="w-full ">
@@ -155,7 +160,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className='flex justify-end items-center py-3 md:py-6'>
+        <div className='flex justify-end items-center py-3 md:py-6 px-1'>
           <button
             type="submit"
             onClick={handleSubmit}

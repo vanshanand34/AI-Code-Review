@@ -39,10 +39,11 @@ export default function Navbar() {
     <div
       className={`${geistRegular.className} z-10 fixed w-[100vw] flex justify-between 
             gap-2 p-1 pt-2 md:p-2 md:pt-3 bg-white dark:bg-[#0e0e0e] 
-            shadow-lg  dark:shadow-gray-700 text-black dark:text-white `}
+            shadow dark:border-b dark:border-b-[#ffffff17] text-black dark:text-white `}
     >
       <div
-        className="font-bold uppercase text-2xl flex items-center p-2 px-4 cursor-pointer font-sans text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-300"
+        className="font-bold uppercase text-2xl flex items-center p-2 px-4 cursor-pointer 
+        font-sans text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-300"
       >
         Code-Mentor
       </div>
@@ -68,7 +69,7 @@ export default function Navbar() {
       {/* toggle Sidebar icon */}
       <div
         onClick={() => setIsSidebarOpen(true)}
-        className="pr-8 md:pr-12 py-2 text-2xl cursor-pointer lg:hidden 
+        className="pr-8 md:pr-12 py-2 text-2xl cursor-pointer md:hidden 
         hover:text-gray-700 dark:hover:text-gray-400" >
         &#8801;
       </div>
@@ -112,7 +113,7 @@ function Sidebar(
       <div
         className="min-h-screen w-[55vw] xs:w-[45vw] sm:w-[35vw] lg:w-[30vw] 
        shadow-gray-600 dark:shadow-black shadow-lg
-       bg-[#f0f0f0] dark:bg-[#1c1c1c]"
+       bg-[#f0f0f0] dark:bg-[#141414]"
         id="sidebar-body"
       >
 

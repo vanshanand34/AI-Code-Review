@@ -10,8 +10,7 @@ import 'prismjs/components/prism-typescript';
 import 'prism-themes/themes/prism-one-dark.css';
 
 import ReviewResult from './components/ReviewResult';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-
+import GetReviewButton from './components/GetReviewButton';
 
 export interface CodeReviewRequest {
   code: string;
@@ -103,14 +102,7 @@ export default function Home() {
             <option value="java">Java</option>
             <option value="typescript">TypeScript</option>
           </select>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            disabled={loading}
-            className="px-3 py-2 sm:px-6 sm:py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
-          >
-            {loading ? 'Reviewing...' : 'Get Review'}
-          </button>
+          <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
         </div>
 
         <div className="">
@@ -119,11 +111,11 @@ export default function Home() {
             <div className='bg-white dark:bg-gray-800 shadow-lg rounded-lg 
             border dark:border-[#ffffff88]'>
               <label
-                className="block text-base sm:text-lg md:text-xl px-4 md:px-8 py-1 pt-3 md:pt-4 font-medium text-gray-700 mb-2 dark:text-white"
+                className="block text-base sm:text-lg md:text-xl px-4 md:px-8 py-1 pt-3 md:pt-4 font-medium text-gray-700 mb-2 dark:text-gray-100"
               >
                 Code
               </label>
-              <div className="grid text-white min-h-[70vh] w-full overflow-x-scroll">
+              <div className="grid grid-cols-1 text-white min-h-[70vh] max-w-full overflow-x-scroll">
                 <Editor
                   value={formData.code}
                   onValueChange={(code) => setFormData({ ...formData, code })}
@@ -133,7 +125,7 @@ export default function Home() {
                   padding={16}
                   className={`focus:outline-0 outline-0 focus:border-0 focus:ring-0 rounded-b-md
                   text-xs sm:text-sm md:text-base font-mono min-h-[70vh] bg-gray-900 
-                  language-${formData.language} overflow-auto w-fit`}
+                  language-${formData.language} overflow-auto min-w-full w-max`}
                   placeholder="Enter your code here..."
                 />
               </div>
@@ -161,14 +153,7 @@ export default function Home() {
           </div>
         </div>
         <div className='flex justify-end items-center py-3 md:py-6 px-1'>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            disabled={loading}
-            className="px-3 py-2 sm:px-6 sm:py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 text-sm sm:text-base"
-          >
-            {loading ? 'Reviewing...' : 'Get Review'}
-          </button>
+          <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
         </div>
 
         {/* Error Message */}

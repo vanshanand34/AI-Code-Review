@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeToggleButton } from "./ThemeToggle";
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,7 @@ const geistRegular = Geist({
 export default function Navbar() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const pathname = usePathname();
 
   function handleClick(e: React.MouseEvent) {
     // event delegation
@@ -50,16 +52,16 @@ export default function Navbar() {
 
       <div className="hidden md:flex items-center gap-4 lg:gap-12 pr-12 py-2">
         <Link href={"/"}>
-          <NavBarComponent componentText="Home" />
+          <NavBarComponent componentText="Home" isSelected={pathname === "/"} />
         </Link>
         <Link href={"/"}>
-          <NavBarComponent componentText="About" />
+          <NavBarComponent componentText="About" isSelected={pathname == "/about"} />
         </Link>
         <Link href={"/code-review"}>
-          <NavBarComponent componentText="Code Review" />
+          <NavBarComponent componentText="Code Review" isSelected={pathname == "/code-review"} />
         </Link>
         <Link href={"/compiler"}>
-          <NavBarComponent componentText="Compiler" />
+          <NavBarComponent componentText="Compiler" isSelected={pathname == "/compiler"} />
         </Link>
 
         <ThemeToggleButton />
@@ -79,10 +81,13 @@ export default function Navbar() {
   );
 }
 
-function NavBarComponent({ componentText }: { componentText: string }) {
+function NavBarComponent({ componentText, isSelected }: { componentText: string, isSelected: boolean }) {
+  const selectedNav = "bg-gray-300 dark:bg-gray-200 text-black";
+  const unselectedNav = "hover:bg-gray-200 dark:hover:text-black";
+  const styleToApply = isSelected ? selectedNav : unselectedNav;
   return (
-    <div className="p-2 px-3 border border-gray-300 dark:border-[#fff6] 
-        rounded-md text-sm cursor-pointer hover:bg-gray-200 dark:hover:text-black text-nowrap">
+    <div className={`p-2 px-3 border border-gray-300 dark:border-[#fff6] 
+        rounded-md text-sm cursor-pointer text-nowrap ${styleToApply}`}>
       {componentText}
     </div>
   );
@@ -138,7 +143,7 @@ function Sidebar(
                 >
                   <div
                     className="w-full px-4 py-4 
-                                        hover:bg-gray-300 dark:hover:bg-gray-900 cursor-pointer"
+                                        hover:bg-[#dadada] dark:hover:bg-[#00000069] cursor-pointer"
                   >
                     {component.componentText}
                   </div>

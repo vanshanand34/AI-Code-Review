@@ -6,11 +6,17 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-tsx';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-cpp';
+import 'prismjs/components/prism-go';
 import 'prismjs/components/prism-typescript';
 import 'prism-themes/themes/prism-one-dark.css';
 
 import ReviewResult from './components/ReviewResult';
 import GetReviewButton from './components/GetReviewButton';
+import CustomSelect from '@/components/CustomSelect';
 
 export interface CodeReviewRequest {
   code: string;
@@ -35,7 +41,8 @@ export default function Home() {
   const [reviewResult, setReviewResult] = useState<CodeReviewResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const languages = ['javascript', 'python', 'java', 'typescript'];
+  const [isDropdownCollapsed, setIsDropdownCollapsed] = useState(true);
+  const languages = ['javascript', 'python', 'java', 'typescript', 'cpp', 'go', 'jsx', 'tsx'];
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -83,25 +90,22 @@ export default function Home() {
     <div className="min-h-screen pt-24 pb-12">
       <div className="w-full p-2 sm:p-8 md:px-32">
         <h1
-          className="text-2xl sm:text-4xl flex justify-center py-4 pb-8 
+          className="text-2xl sm:text-3xl md:text-4xl flex justify-center py-4 pb-12 
           font-bold text-gray-800 dark:text-white"
         >
-          <div className='w-fit p-3 md:p-5 rounded-md bg-gray-100 dark:bg-gray-800 border border-[#00000022]' >
-            Code Reviewer
+          <div className='font-[sans-serif] w-fit p-3 md:p-5 md:px-32 rounded-md border-[#00000022]' >
+            Paste Your Code Below for AI Review
           </div>
         </h1>
 
         <div className="flex items-center justify-center gap-x-6 auto-rows-[1fr] pb-8">
-          <select
-            value={formData.language}
-            onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-            className="px-3 py-2 sm:p-3 text-sm sm:text-base rounded-md bg-gray-100 text-gray-800 border border-gray-300"
-          >
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="java">Java</option>
-            <option value="typescript">TypeScript</option>
-          </select>
+          <CustomSelect
+            choicesList={languages}
+            choiceSelected={formData.language}
+            onChange={(choice) => setFormData({ ...formData, language: choice })}
+            isDropdownCollapsed={isDropdownCollapsed}
+            setIsDropdownCollapsed={setIsDropdownCollapsed}
+          />
           <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
         </div>
 

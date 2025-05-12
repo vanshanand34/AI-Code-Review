@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent, useEffect, useRef } from 'react';
 import Editor from 'react-simple-code-editor';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-javascript';
@@ -9,11 +9,23 @@ import 'prismjs/components/prism-java';
 import 'prismjs/components/prism-typescript';
 import 'prism-themes/themes/prism-one-dark.css';
 import { CodeReviewRequest, CodeReviewResponse } from '../Review';
+import { Copy } from 'lucide-react';
 
 const ReviewResult = (
     { reviewResult, formData }:
         { reviewResult: CodeReviewResponse | null, formData: CodeReviewRequest | null }
 ) => {
+
+    const copyIconRef = useRef<HTMLDivElement>(null);
+
+    function handleCopyCode(reviewResult: CodeReviewResponse) {
+        window.navigator.clipboard.writeText(reviewResult.refactoredCode);
+        copyIconRef.current?.classList.add('hover:text-green-500', 'scale-125', 'text-green-500');
+        setTimeout(() => {
+            copyIconRef.current?.classList.remove('hover:text-green-500', 'scale-125', 'text-green-500');
+        }, 500);
+    }
+
     return <>
         {reviewResult && (
             <div className="mt-8 bg-white dark:bg-gray-900 rounded-lg shadow-[1px_1px_15px_#00000048] 
@@ -106,9 +118,18 @@ const ReviewResult = (
                     </div>
 
                     <div>
-                        <h3 className="text-lg font-medium text-gray-700 dark:text-white">
-                            Refactored Code
-                        </h3>
+                        <div className="flex justify-between items-center">
+                            <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                                Refactored Code
+                            </h3>
+                            <div
+                                ref={copyIconRef}
+                                className='transition-all duration-75 delay-75 ease-in-out px-4 cursor-pointer hover:text-gray-700'
+                            >
+                                <Copy onClick={() => handleCopyCode(reviewResult)} />
+                            </div>
+                        </div>
+
 
                         <div className='text-xs sm:text-sm md:text-base text-gray-300'>
                             <pre className='line-numbers'
@@ -116,7 +137,6 @@ const ReviewResult = (
                                     marginTop: '15px',
                                     padding: '10px',
                                     borderRadius: '5px',
-                                    // backgroundColor: '#111827',
                                     overflowX: 'auto',
                                     maxWidth: '100%'
                                 }}

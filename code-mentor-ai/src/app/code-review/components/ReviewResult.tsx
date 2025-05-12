@@ -16,14 +16,15 @@ const ReviewResult = (
 ) => {
     return <>
         {reviewResult && (
-            <div className="mt-8 bg-white dark:bg-gray-800 p-4 md:p-8 rounded-lg shadow-lg 
-            border border-[#00000015] dark:border-[#fff7]">
+            <div className="mt-8 bg-white dark:bg-gray-900 rounded-lg shadow-[1px_1px_15px_#00000048] 
+            border border-[#00000015] dark:border-[#fff7] overflow-clip">
 
-                <h2 className="text-2xl text-center font-bold text-gray-800 dark:text-white mb-6">
+                <h2 className="border-b dark:border-0 dark:bg-gray-800 text-2xl font-bold text-gray-800 dark:text-white 
+                    py-4 md:py-4 px-4 md:px-6">
                     Code Review Results
                 </h2>
 
-                <div className='py-6 d:py-8 rounded-lg '>
+                <div className='p-4 md:p-6 py-6 d:py-8 rounded-lg '>
 
                     <div className="pb-6 px-2">
 

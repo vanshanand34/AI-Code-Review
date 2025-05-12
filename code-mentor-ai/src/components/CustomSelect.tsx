@@ -17,7 +17,7 @@ function CustomSelect(
     return (
         <div
             className="w-32 md:w-36 relative flex justify-between items-center rounded-md
-            px-2 md:px-4 py-2 md:py-3 cursor-pointer dark:border-[#fff5] bg-white dark:bg-gray-800
+            px-2 md:px-4 py-2 md:py-3 cursor-pointer dark:border-[#fff5] bg-white dark:bg-[#202020]
             shadow-[1px_1px_5px_#0006] dark:shadow-[1px_1px_15px_#000] text-gray-600 dark:text-white"
             onClick={() => setIsDropdownCollapsed(prev => !prev)}
         >

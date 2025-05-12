@@ -82,7 +82,7 @@ export default function Navbar() {
 }
 
 function NavBarComponent({ componentText, isSelected }: { componentText: string, isSelected: boolean }) {
-  const selectedNav = "bg-gray-300 dark:bg-gray-200 text-black";
+  const selectedNav = "bg-gray-500 dark:bg-gray-200 dark:text-black text-white border-0";
   const unselectedNav = "hover:bg-gray-200 dark:hover:text-black";
   const styleToApply = isSelected ? selectedNav : unselectedNav;
   return (

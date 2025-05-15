@@ -24,7 +24,7 @@ function CustomSelect(
             {choiceSelected.charAt(0).toUpperCase() + choiceSelected.slice(1)}
 
             <div className={`z-10 absolute w-[110%] left-0 top-[120%] bg-gray-100 
-                        dark:border-[#fff2] rounded dark:bg-gray-800 shadow-[1px_1px_5px_#0006] 
+                        dark:border-[#fff2] rounded dark:bg-[#202020] shadow-[1px_1px_5px_#0006] 
                         text-gray-600 dark:text-white transition-all duration-1000 ${isDropdownCollapsed ? "opacity-0 hidden" : "opacity-1 block"}`}>
                 {choicesList.map((choice) => (
                     <div

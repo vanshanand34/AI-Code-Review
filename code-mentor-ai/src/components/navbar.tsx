@@ -71,8 +71,8 @@ export default function Navbar() {
       {/* toggle Sidebar icon */}
       <div
         onClick={() => setIsSidebarOpen(true)}
-        className="pr-8 md:pr-12 py-2 text-2xl cursor-pointer md:hidden 
-        hover:text-gray-700 dark:hover:text-gray-400" >
+        className="pr-8 md:pr-12 py-2 text-4xl cursor-pointer md:hidden 
+        hover:text-gray-700 dark:hover:text-gray-400 font-thin" >
         &#8801;
       </div>
 
@@ -133,7 +133,7 @@ function Sidebar(
           </div>
         </div>
 
-        <div className="p-4 uppercase font-bold text-gray-800 dark:text-white">
+        <div className="p-4 uppercase font-semibold text-gray-800 dark:text-white">
           {
             components.map(
               (component, index) => (
@@ -142,8 +142,8 @@ function Sidebar(
                   key={index}
                 >
                   <div
-                    className="w-full px-4 py-4 
-                                        hover:bg-[#dadada] dark:hover:bg-[#00000069] cursor-pointer"
+                    className="text-sm sm:text-base w-full px-4 py-4 
+                                        hover:bg-[#e4e4e4] dark:hover:bg-[#00000069] cursor-pointer"
                   >
                     {component.componentText}
                   </div>

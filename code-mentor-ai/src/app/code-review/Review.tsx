@@ -94,7 +94,7 @@ export default function Home() {
   }, [reviewResult]);
 
   return (
-    <div className="min-h-screen pt-24 pb-12 dark:bg-[#101010]">
+    <div className="min-h-screen pt-24 pb-12 dark:bg-[#101010] transition-all transition-discrete">
       <div className="w-full p-2 sm:p-8 md:px-32 lg:px-52">
         <h1
           className="text-xl sm:text-2xl md:text-3xl flex justify-center py-4 pb-12 

@@ -20,7 +20,7 @@ import { Code } from "lucide-react";
 
 function CodeDescriptionInput({ formData, setFormData }: CodeEditorProps) {
     return (
-        <div className=''>
+        <div className='' id="description-section">
             <div className='shadow-[1px_1px_15px_#00000058] rounded-lg 
             bg-white dark:bg-gray-800 border border-[#00000033] dark:border-[#ffffff2c]'>
                 <label className="block px-3 md:px-6 py-3 md:pt-4 text-base sm:text-lg md:text-xl 

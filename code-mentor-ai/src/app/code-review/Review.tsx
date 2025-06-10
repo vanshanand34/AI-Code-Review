@@ -18,6 +18,7 @@ import GetReviewButton from './components/GetReviewButton';
 import CustomSelect from '@/components/CustomSelect';
 import CodeEditor from './components/CodeEditor';
 import CodeDescriptionInput from './components/DescriptionInput';
+import SectionNavigation from './components/SectionNavigation';
 
 
 export interface CodeReviewRequest {
@@ -95,6 +96,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen pt-24 pb-12 dark:bg-[#101010] transition-all transition-discrete">
+      <SectionNavigation />
       <div className="w-full p-2 sm:p-8 md:px-32 lg:px-52">
         <h1
           className="text-xl sm:text-2xl md:text-3xl flex justify-center py-4 pb-12 
@@ -119,7 +121,7 @@ export default function Home() {
 
         </div>
 
-        <div className="">
+        <div className="" id='code-section'>
           <div className="grid md:grid-cols-1 gap-y-4 md:gap-8 md:gap-y-16 w-full">
             {/* Syntax-highlighted Code Editor */}
             <CodeEditor formData={formData} setFormData={setFormData} />
@@ -146,8 +148,9 @@ export default function Home() {
         )}
 
         {/* Results */}
-        <ReviewResult reviewResult={reviewResult} formData={formData} />
-
+        <div id="review-section">
+          <ReviewResult reviewResult={reviewResult} formData={formData} />
+        </div>
       </div>
     </div>
   );

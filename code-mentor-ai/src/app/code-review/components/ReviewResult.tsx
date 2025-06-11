@@ -69,7 +69,7 @@ const ReviewResult = (
                         }
                     </div>
 
-                    <div className="pb-6">
+                    <div className="pb-6 px-2">
 
                         <h3 className="text-lg font-medium text-gray-700 dark:text-white">
                             Potential Bugs
@@ -93,7 +93,7 @@ const ReviewResult = (
                         }
                     </div>
 
-                    <div className="pb-6">
+                    <div className="pb-6 px-2">
 
                         <h3 className="text-lg font-medium text-gray-700 dark:text-white">
                             Security Issues
@@ -118,7 +118,7 @@ const ReviewResult = (
                     </div>
 
                     <div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center px-2">
                             <h3 className="text-lg font-medium text-gray-700 dark:text-white">
                                 Refactored Code
                             </h3>

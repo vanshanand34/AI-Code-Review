@@ -7,7 +7,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-java';
 import 'prismjs/components/prism-typescript';
-import 'prism-themes/themes/prism-one-dark.css';
+import 'prism-themes/themes/prism-vsc-dark-plus.css';
 import { CodeReviewRequest, CodeReviewResponse } from '../Review';
 import { Copy } from 'lucide-react';
 
@@ -123,10 +123,11 @@ const ReviewResult = (
                                 Refactored Code
                             </h3>
                             <div
+                                title='Copy Code'
                                 ref={copyIconRef}
                                 className='transition-all duration-75 delay-75 ease-in-out px-4 cursor-pointer hover:text-gray-700'
                             >
-                                <Copy onClick={() => handleCopyCode(reviewResult)} />
+                                <Copy onClick={() => handleCopyCode(reviewResult)} xlinkTitle='Copy'/>
                             </div>
                         </div>
 
@@ -143,7 +144,7 @@ const ReviewResult = (
                             >
                                 <code
                                     className={`language-${formData?.language || 'javascript'} line-numbers 
-                                        text-xs sm:text-sm md:text-base`}
+                                        text-xs sm:text-sm md:text-base bg-[#1e1e1e]`}
                                 >
                                     {reviewResult.refactoredCode}
                                 </code>

@@ -37,7 +37,7 @@ function CodeEditor({ formData, setFormData }: CodeEditorProps) {
                     }
                     padding={16}
                     className={`focus:outline-0 outline-0 focus:border-0 focus:ring-0 rounded-b-md
-                  text-xs sm:text-sm md:text-base font-mono min-h-[70vh] bg-gray-900 
+                  text-xs sm:text-sm md:text-sm font-mono min-h-[70vh] bg-gray-900 
                   language-${formData.language} overflow-auto min-w-full w-max`}
                     placeholder="Enter your code here..."
                 />

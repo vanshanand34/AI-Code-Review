@@ -102,7 +102,7 @@ export default function Home() {
           className="text-xl sm:text-2xl md:text-3xl flex justify-center py-4 pb-12 
           font-bold text-gray-800 dark:text-white text-center"
         >
-          <div className='font-[sans-serif] w-fit p-3 md:p-5 md:px-32 rounded-md border-[#00000022]' >
+          <div className='font-[sans-serif] w-fit px-8 p-3 md:p-5 md:px-32 rounded-md border-[#00000022]' >
             Paste Your Code Below for AI Review
           </div>
         </h1>

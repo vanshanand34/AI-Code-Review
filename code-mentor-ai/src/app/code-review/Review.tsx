@@ -18,6 +18,7 @@ import CustomSelect from '@/components/CustomSelect';
 import CodeEditor from './components/CodeEditor';
 import CodeDescriptionInput from './components/DescriptionInput';
 import SectionNavigation from './components/SectionNavigation';
+import ErrorDisplay from './components/Error';
 
 
 export interface CodeReviewRequest {
@@ -50,6 +51,13 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [isDropdownCollapsed, setIsDropdownCollapsed] = useState(true);
   const languages = ['javascript', 'python', 'java', 'typescript', 'cpp', 'go', 'jsx', 'tsx'];
+
+  const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest("#language-select") && !isDropdownCollapsed) {
+      setIsDropdownCollapsed(true);
+    }
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -94,7 +102,10 @@ export default function Home() {
   }, [reviewResult]);
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-2 dark:bg-[#101010] transition-all transition-discrete">
+    <div
+      className="min-h-screen pt-24 pb-12 px-2 dark:bg-[#101010] transition-all transition-discrete"
+      onClick={handleClickOutside}
+    >
       <SectionNavigation />
       <div className="w-full p-2 sm:p-8 md:px-32  lg:pl-60 lg:pr-24 xl:pl-72 xl:pr-44">
         <h1
@@ -134,17 +145,7 @@ export default function Home() {
         </div>
 
         {/* Error Message */}
-        {error && (
-          <div className="mt-8">
-            <div className="bg-red-700 text-white rounded-md p-4 flex justify-between items-center">
-              <p className='text-xs sm:text-sm md:text-base'>{error}</p>
-              <span
-                className='text-xl md:text-3xl cursor-pointer hover:text-gray-300'
-                onClick={() => setError("")}
-              >&times;</span>
-            </div>
-          </div>
-        )}
+        <ErrorDisplay error={error} setError={setError} />
 
         {/* Results */}
         <div id="review-section" className='scroll-mt-24'>

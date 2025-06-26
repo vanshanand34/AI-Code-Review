@@ -11,6 +11,8 @@ import { Copy } from 'lucide-react';
 import "../../globals.css";
 import { BodyBg, codeSectionBodyStyle, codeSectionHeaderStyle } from '@/components/styleConstants';
 
+const ReviewResultHeaderFontSize = "text-base md:text-lg font-medium";
+
 const ReviewResult = (
     { reviewResult, formData }:
         { reviewResult: CodeReviewResponse | null, formData: CodeReviewRequest | null }
@@ -39,81 +41,88 @@ const ReviewResult = (
 
                         <div className="pb-6 px-2">
 
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                            <h3 className={`${ReviewResultHeaderFontSize} text-gray-700 dark:text-white`}>
                                 Overall Review
                             </h3>
 
-                            <p className="py-1 text-gray-600 dark:text-gray-300 text-xs sm:text-sm md:text-base">{reviewResult.review}</p>
+                            <p
+                                className="py-1 text-gray-600 dark:text-gray-300 
+                                text-sm sm:text-base"
+                            >
+                                {reviewResult.review}
+                            </p>
                         </div>
 
                         <div className="pb-6 px-2">
 
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                            <h3 className={`${ReviewResultHeaderFontSize} text-gray-700 dark:text-white`}>
                                 Suggestions
                             </h3>
-
-                            {
-                                reviewResult.suggestions.length > 0 ? (
-                                    <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 
+                            <div className=' text-gray-600 dark:text-gray-300 text-sm sm:text-base'>
+                                {
+                                    reviewResult.suggestions.length > 0 ? (
+                                        <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 
                                     text-xs sm:text-sm md:text-base">
-                                        {reviewResult.suggestions.map((s, i) => (
-                                            <li key={i} className='p-2'>{s}</li>
-                                        ))}
-                                    </ul>
-                                ) : (
-                                    <p className="text-gray-600 dark:text-gray-300">
-                                        No suggestions provided.
-                                    </p>
-                                )
-                            }
+                                            {reviewResult.suggestions.map((s, i) => (
+                                                <li key={i} className='p-2'>{s}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-gray-600 dark:text-gray-300">
+                                            No suggestions provided.
+                                        </p>
+                                    )
+                                }
+                            </div>
                         </div>
 
                         <div className="pb-6 px-2">
 
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                            <h3 className={`${ReviewResultHeaderFontSize} text-gray-700 dark:text-white`}>
                                 Potential Bugs
                             </h3>
-
-                            {
-                                reviewResult.potentialBugs.length > 0 ?
-                                    (
-                                        <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 
+                            <div className=' text-gray-600 dark:text-gray-300 text-sm sm:text-base'>
+                                {
+                                    reviewResult.potentialBugs.length > 0 ?
+                                        (
+                                            <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 
                                     text-xs sm:text-sm md:text-base">
-                                            {reviewResult.potentialBugs.map((b, i) => (
-                                                <li key={i} className='p-2'>{b}</li>
-                                            ))}
-                                        </ul>
-                                    ) :
-                                    (
-                                        <p className="text-gray-600 dark:text-gray-300">
-                                            No potential bugs identified.
-                                        </p>
-                                    )
-                            }
+                                                {reviewResult.potentialBugs.map((b, i) => (
+                                                    <li key={i} className='p-2'>{b}</li>
+                                                ))}
+                                            </ul>
+                                        ) :
+                                        (
+                                            <p className="text-gray-600 dark:text-gray-300">
+                                                No potential bugs identified.
+                                            </p>
+                                        )
+                                }
+                            </div>
                         </div>
 
                         <div className="pb-6 px-2">
 
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-white">
+                            <h3 className={`${ReviewResultHeaderFontSize} text-gray-700 dark:text-white`}>
                                 Security Issues
                             </h3>
-
-                            {
-                                reviewResult.securityIssues.length > 0 ?
-                                    (
-                                        <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 
-                                    text-xs sm:text-sm md:text-base">
-                                            {reviewResult.securityIssues.map((s, i) => (
-                                                <li key={i} className='p-2' >{s}</li>
-                                            ))}
-                                        </ul>
-                                    ) :
-                                    (
-                                        <p className="text-gray-600 dark:text-gray-300">
-                                            No security issues identified.
-                                        </p>
-                                    )
-                            }
+                            <div className=' text-gray-600 dark:text-gray-300 text-sm sm:text-base'>
+                                {
+                                    reviewResult.securityIssues.length > 0 ?
+                                        (
+                                            <ul className="list-disc list-inside">
+                                                {reviewResult.securityIssues.map((s, i) => (
+                                                    <li key={i} className='p-2' >{s}</li>
+                                                ))}
+                                            </ul>
+                                        ) :
+                                        (
+                                            <p className="text-gray-600 dark:text-gray-300">
+                                                No security issues identified.
+                                            </p>
+                                        )
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,7 +142,7 @@ const ReviewResult = (
                         </div>
 
 
-                        <div className={`px-2 text-xs sm:text-sm md:text-base text-gray-300 ${BodyBg}`}>
+                        <div className={`px-2 text-[13px]/[21px_!important] sm:text-xs/5 md:text-[14px]/[21px] text-gray-300 ${BodyBg}`}>
                             <pre className='line-numbers'
                                 style={{
                                     marginTop: '0',
@@ -145,7 +154,7 @@ const ReviewResult = (
                             >
                                 <code
                                     className={`language-${formData?.language || 'javascript'} line-numbers 
-                                        text-xs sm:text-sm md:text-base `}
+                                        `}
                                 >
                                     {reviewResult.refactoredCode}
                                 </code>

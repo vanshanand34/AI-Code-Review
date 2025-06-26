@@ -17,7 +17,7 @@ import { BodyBg, codeSectionBodyStyle, codeSectionHeaderStyle } from "@/componen
 function CodeDescriptionInput({ formData, setFormData }: CodeEditorProps) {
     return (
         <div
-            className={`overflow-hidden scroll-mt-24 shadow-[1px_1px_15px_#00000058] 
+            className={`overflow-clip scroll-mt-24 shadow-[1px_1px_15px_#00000058] 
                 rounded-lg  ${codeSectionBodyStyle}`} id="description-section"
         >
             <label className={`block text-gray-700 dark:text-white ${codeSectionHeaderStyle}`}>

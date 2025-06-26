@@ -26,7 +26,11 @@ function CodeEditor({ formData, setFormData }: CodeEditorProps) {
     useEffect(() => setIsDarkMode(theme === 'dark'), [theme]);
 
     return (
-        <div className={`overflow-hidden shadow-[1px_1px_15px_#00000058] rounded-lg scroll-mt-24 ${codeSectionBodyStyle}`} id="code-section">
+        <div
+            className={`overflow-clip shadow-[1px_1px_15px_#00000058] 
+            rounded-lg scroll-mt-64 ${codeSectionBodyStyle}`}
+            id="code-section"
+            tabIndex={-1}>
 
             <label
                 className={`block text-gray-700 pb-3 dark:text-gray-100 ${codeSectionHeaderStyle}`}
@@ -47,7 +51,7 @@ function CodeEditor({ formData, setFormData }: CodeEditorProps) {
                     }
                     padding={16}
                     className={`focus:outline-0 outline-0 focus:border-0 focus:ring-0 rounded-b-md
-                    text-[12px] sm:text-xs md:text-base font-mono min-h-[70vh] 
+                    text-[13px]/[21px] sm:text-xs/5 md:text-[14px]/[22px]  font-mono min-h-[70vh] 
                     language-${formData.language} overflow-auto min-w-full w-max`}
                     placeholder="Enter your code here..."
                     style={{

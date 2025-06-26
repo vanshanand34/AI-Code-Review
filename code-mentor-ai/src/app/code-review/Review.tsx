@@ -11,7 +11,6 @@ import 'prismjs/components/prism-c';
 import 'prismjs/components/prism-cpp';
 import 'prismjs/components/prism-go';
 import 'prismjs/components/prism-typescript';
-import 'prism-themes/themes/prism-one-dark.css';
 
 import ReviewResult from './components/ReviewResult';
 import GetReviewButton from './components/GetReviewButton';
@@ -95,7 +94,7 @@ export default function Home() {
   }, [reviewResult]);
 
   return (
-    <div className="min-h-screen pt-24 pb-12 dark:bg-[#101010] transition-all transition-discrete">
+    <div className="min-h-screen pt-24 pb-12 px-2 dark:bg-[#101010] transition-all transition-discrete">
       <SectionNavigation />
       <div className="w-full p-2 sm:p-8 md:px-32  lg:pl-60 lg:pr-24 xl:pl-72 xl:pr-44">
         <h1
@@ -107,7 +106,7 @@ export default function Home() {
           </div>
         </h1>
 
-        <div className="flex items-center justify-center gap-x-6 auto-rows-[1fr] pb-8"  id='code-section'>
+        <div className="flex items-center justify-center gap-x-6 auto-rows-[1fr] pb-8">
 
           <CustomSelect
             choicesList={languages}
@@ -148,7 +147,7 @@ export default function Home() {
         )}
 
         {/* Results */}
-        <div id="review-section">
+        <div id="review-section" className='scroll-mt-24'>
           <ReviewResult reviewResult={reviewResult} formData={formData} />
         </div>
       </div>

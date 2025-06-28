@@ -1,10 +1,10 @@
 import Navbar from "@/components/Navbar";
+import ParentLayout from "@/components/ParentLayout";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="dark:bg-[#050505] bg-white min-h-screen">
-      <Navbar />
+    <ParentLayout>
       <div className="pt-48 px-6 s:px-24 sm:px-18 md:px-32">
 
         <div className="p-2 lg:pr-[8vw] xl:pr-[15vw] text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white">
@@ -25,6 +25,6 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
-    </div>
+    </ParentLayout>
   );
 }

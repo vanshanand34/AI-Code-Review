@@ -19,6 +19,7 @@ import CodeEditor from './components/CodeEditor';
 import CodeDescriptionInput from './components/DescriptionInput';
 import SectionNavigation from './components/SectionNavigation';
 import ErrorDisplay from './components/Error';
+import ParentLayout from '@/components/ParentLayout';
 
 
 export interface CodeReviewRequest {
@@ -102,56 +103,58 @@ export default function Home() {
   }, [reviewResult]);
 
   return (
-    <div
-      className="min-h-screen pt-24 pb-12 px-2 dark:bg-[#101010] transition-all transition-discrete"
-      onClick={handleClickOutside}
-    >
-      <SectionNavigation />
-      <div className="w-full p-2 sm:p-8 md:px-32  lg:pl-60 lg:pr-24 xl:pl-72 xl:pr-44">
-        <h1
-          className="text-xl sm:text-2xl md:text-3xl flex justify-center py-4 pb-12 
+    <ParentLayout>
+      <div
+        className="pt-24 pb-12 px-2"
+        onClick={handleClickOutside}
+      >
+        <SectionNavigation />
+        <div className="w-full p-2 sm:p-8 md:px-32  lg:pl-60 lg:pr-24 xl:pl-72 xl:pr-44">
+          <h1
+            className="text-xl sm:text-2xl md:text-3xl flex justify-center py-4 pb-12 
           font-bold text-gray-800 dark:text-white text-center"
-        >
-          <div className='font-[sans-serif] w-fit px-8 p-3 md:p-5 md:px-32 rounded-md border-[#00000022]' >
-            Paste Your Code Below for AI Review
+          >
+            <div className='font-[sans-serif] w-fit px-8 p-3 md:p-5 md:px-32 rounded-md border-[#00000022]' >
+              Paste Your Code Below for AI Review
+            </div>
+          </h1>
+
+          <div className="flex items-center justify-center gap-x-6 auto-rows-[1fr] pb-8">
+
+            <CustomSelect
+              choicesList={languages}
+              choiceSelected={formData.language}
+              onChange={(choice) => setFormData({ ...formData, language: choice })}
+              isDropdownCollapsed={isDropdownCollapsed}
+              setIsDropdownCollapsed={setIsDropdownCollapsed}
+            />
+
+            <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
+
           </div>
-        </h1>
 
-        <div className="flex items-center justify-center gap-x-6 auto-rows-[1fr] pb-8">
+          <div className="">
+            <div className="grid md:grid-cols-1 gap-y-4 md:gap-8 md:gap-y-16 w-full">
+              {/* Syntax-highlighted Code Editor */}
+              <CodeEditor formData={formData} setFormData={setFormData} />
 
-          <CustomSelect
-            choicesList={languages}
-            choiceSelected={formData.language}
-            onChange={(choice) => setFormData({ ...formData, language: choice })}
-            isDropdownCollapsed={isDropdownCollapsed}
-            setIsDropdownCollapsed={setIsDropdownCollapsed}
-          />
-
-          <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
-
-        </div>
-
-        <div className="">
-          <div className="grid md:grid-cols-1 gap-y-4 md:gap-8 md:gap-y-16 w-full">
-            {/* Syntax-highlighted Code Editor */}
-            <CodeEditor formData={formData} setFormData={setFormData} />
-
-            {/* Description Input */}
-            <CodeDescriptionInput formData={formData} setFormData={setFormData} />
+              {/* Description Input */}
+              <CodeDescriptionInput formData={formData} setFormData={setFormData} />
+            </div>
           </div>
-        </div>
-        <div className='flex justify-end items-center py-3 md:py-6 px-1'>
-          <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
-        </div>
+          <div className='flex justify-end items-center py-3 md:py-6 px-1'>
+            <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
+          </div>
 
-        {/* Error Message */}
-        <ErrorDisplay error={error} setError={setError} />
+          {/* Error Message */}
+          <ErrorDisplay error={error} setError={setError} />
 
-        {/* Results */}
-        <div id="review-section" className='scroll-mt-24'>
-          <ReviewResult reviewResult={reviewResult} formData={formData} />
+          {/* Results */}
+          <div id="review-section" className='scroll-mt-24'>
+            <ReviewResult reviewResult={reviewResult} formData={formData} />
+          </div>
         </div>
       </div>
-    </div>
+    </ParentLayout>
   );
 }

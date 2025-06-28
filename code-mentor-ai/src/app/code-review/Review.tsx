@@ -11,7 +11,6 @@ import 'prismjs/components/prism-c';
 import 'prismjs/components/prism-cpp';
 import 'prismjs/components/prism-go';
 import 'prismjs/components/prism-typescript';
-import 'prism-themes/themes/prism-one-dark.css';
 
 import ReviewResult from './components/ReviewResult';
 import GetReviewButton from './components/GetReviewButton';
@@ -19,6 +18,8 @@ import CustomSelect from '@/components/CustomSelect';
 import CodeEditor from './components/CodeEditor';
 import CodeDescriptionInput from './components/DescriptionInput';
 import SectionNavigation from './components/SectionNavigation';
+import ErrorDisplay from './components/Error';
+import ParentLayout from '@/components/ParentLayout';
 
 
 export interface CodeReviewRequest {
@@ -51,6 +52,13 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [isDropdownCollapsed, setIsDropdownCollapsed] = useState(true);
   const languages = ['javascript', 'python', 'java', 'typescript', 'cpp', 'go', 'jsx', 'tsx'];
+
+  const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest("#language-select") && !isDropdownCollapsed) {
+      setIsDropdownCollapsed(true);
+    }
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -95,63 +103,58 @@ export default function Home() {
   }, [reviewResult]);
 
   return (
-    <div className="min-h-screen pt-24 pb-12 dark:bg-[#101010] transition-all transition-discrete">
-      <SectionNavigation />
-      <div className="w-full p-2 sm:p-8 md:px-32  lg:pl-60 lg:pr-24 xl:pl-72 xl:pr-44">
-        <h1
-          className="text-xl sm:text-2xl md:text-3xl flex justify-center py-4 pb-12 
+    <ParentLayout>
+      <div
+        className="pt-24 pb-12 px-2"
+        onClick={handleClickOutside}
+      >
+        <SectionNavigation />
+        <div className="w-full p-2 sm:p-8 md:px-32  lg:pl-60 lg:pr-24 xl:pl-72 xl:pr-44">
+          <h1
+            className="text-xl sm:text-2xl md:text-3xl flex justify-center py-4 pb-12 
           font-bold text-gray-800 dark:text-white text-center"
-        >
-          <div className='font-[sans-serif] w-fit p-3 md:p-5 md:px-32 rounded-md border-[#00000022]' >
-            Paste Your Code Below for AI Review
+          >
+            <div className='font-[sans-serif] w-fit px-8 p-3 md:p-5 md:px-32 rounded-md border-[#00000022]' >
+              Paste Your Code Below for AI Review
+            </div>
+          </h1>
+
+          <div className="flex items-center justify-center gap-x-6 auto-rows-[1fr] pb-8">
+
+            <CustomSelect
+              choicesList={languages}
+              choiceSelected={formData.language}
+              onChange={(choice) => setFormData({ ...formData, language: choice })}
+              isDropdownCollapsed={isDropdownCollapsed}
+              setIsDropdownCollapsed={setIsDropdownCollapsed}
+            />
+
+            <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
+
           </div>
-        </h1>
 
-        <div className="flex items-center justify-center gap-x-6 auto-rows-[1fr] pb-8"  id='code-section'>
+          <div className="">
+            <div className="grid md:grid-cols-1 gap-y-4 md:gap-8 md:gap-y-16 w-full">
+              {/* Syntax-highlighted Code Editor */}
+              <CodeEditor formData={formData} setFormData={setFormData} />
 
-          <CustomSelect
-            choicesList={languages}
-            choiceSelected={formData.language}
-            onChange={(choice) => setFormData({ ...formData, language: choice })}
-            isDropdownCollapsed={isDropdownCollapsed}
-            setIsDropdownCollapsed={setIsDropdownCollapsed}
-          />
-
-          <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
-
-        </div>
-
-        <div className="">
-          <div className="grid md:grid-cols-1 gap-y-4 md:gap-8 md:gap-y-16 w-full">
-            {/* Syntax-highlighted Code Editor */}
-            <CodeEditor formData={formData} setFormData={setFormData} />
-
-            {/* Description Input */}
-            <CodeDescriptionInput formData={formData} setFormData={setFormData} />
-          </div>
-        </div>
-        <div className='flex justify-end items-center py-3 md:py-6 px-1'>
-          <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
-        </div>
-
-        {/* Error Message */}
-        {error && (
-          <div className="mt-8">
-            <div className="bg-red-700 text-white rounded-md p-4 flex justify-between items-center">
-              <p className='text-xs sm:text-sm md:text-base'>{error}</p>
-              <span
-                className='text-xl md:text-3xl cursor-pointer hover:text-gray-300'
-                onClick={() => setError("")}
-              >&times;</span>
+              {/* Description Input */}
+              <CodeDescriptionInput formData={formData} setFormData={setFormData} />
             </div>
           </div>
-        )}
+          <div className='flex justify-end items-center py-3 md:py-6 px-1'>
+            <GetReviewButton handleSubmit={handleSubmit} loading={loading} />
+          </div>
 
-        {/* Results */}
-        <div id="review-section">
-          <ReviewResult reviewResult={reviewResult} formData={formData} />
+          {/* Error Message */}
+          <ErrorDisplay error={error} setError={setError} />
+
+          {/* Results */}
+          <div id="review-section" className='scroll-mt-24'>
+            <ReviewResult reviewResult={reviewResult} formData={formData} />
+          </div>
         </div>
       </div>
-    </div>
+    </ParentLayout>
   );
 }

@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <div className="bg-white dark:bg-[#050505] min-h-screen">
         <Navbar />
-        <div className="p-2">
+        <div className="">
             <Review />
         </div>
       </div>

@@ -1,10 +1,14 @@
 'use client';
 import { useState, useEffect } from "react";
-import Editor from "@monaco-editor/react";
+import Editor, { useMonaco } from "@monaco-editor/react";
 import axios from "axios";
 import { LANGUAGES, DEFAULT_CODE_SNIPPETS } from "@/components/constants";
 import CustomSelect from "@/components/CustomSelect";
 import { useTheme } from "next-themes";
+import { BodyBg, codeSectionBodyStyle, codeSectionFont, codeSectionHeaderStyle } from "@/components/styleConstants";
+import Output from "./components/OutputSection";
+import InputSection from "./components/InputSection";
+import EditorSection from "./components/Editor";
 
 function App() {
     const [language, setLanguage] = useState("javascript");
@@ -13,12 +17,30 @@ function App() {
     const [output, setOutput] = useState("");
     const [stdin, setStdin] = useState("");
     const [loading, setLoading] = useState(false);
+    const [fontSize, setFontSize] = useState(getResponsiveFontSize());
     const { theme, setTheme } = useTheme();
 
     useEffect(() => {
         setCode(DEFAULT_CODE_SNIPPETS[language] || "");
     }, [language]);
 
+    function getResponsiveFontSize() {
+        if (typeof window == "undefined") return 16;
+        const width = window.innerWidth;
+        if (width < 500) return 13;
+        if (width < 800) return 14;
+        if (width < 1200) return 15;
+        return 16;
+    }
+
+    const monaco = useMonaco();
+
+    const htmlDefaults = monaco?.languages.html.htmlDefaults
+    htmlDefaults?.setModeConfiguration({
+        ...htmlDefaults.modeConfiguration,
+        documentFormattingEdits: false,
+        documentRangeFormattingEdits: false,
+    })
 
     const handleRun = async () => {
         setLoading(true);
@@ -41,8 +63,8 @@ function App() {
 
     return (
         <div className="min-h-screen pt-24 text-gray-900 dark:text-white p-4 md:px-12 space-y-4 pb-12">
-            <header className="text-xl md:text-3xl font-bold text-center py-4 flex items-center justify-center">
-                <div className="bg-gray-100 dark:bg-inherit dark:outline dark:outline-1 dark:outline-[#fff5] p-4 rounded-md text-gray-700 dark:text-white">
+            <header className="text-xl md:text-3xl lg:text-4xl font-bold text-center py-4 flex items-center justify-center">
+                <div className="p-4 rounded-md text-gray-700 dark:text-white">
                     Code Compiler
                 </div>
             </header>
@@ -77,46 +99,17 @@ function App() {
             </div>
 
             <div
-                className="block max-h-[60vh] md:flex px-4 md:px-1 md:flex-row gap-8"
-                style={{ height: "calc(100vh - 160px)" }}>
+                className="block max-h-[60vh] md:flex px-4 md:px-1 md:flex-row gap-8 h-[calc(100vh-140px)]">
                 {/* Editor */}
-                <div className="w-full md:w-1/2 h-full border border-gray-400 dark:border-[#fff8] rounded-md overflow-hidden shadow-lg">
-                    <Editor
-                        height="100%"
-                        theme={theme === "dark" ? "vs-dark" : "vs-light"}
-                        language={language}
-                        value={code}
-                        onChange={(value) => setCode(value || "")}
-                        options={{
-                            fontSize: 16,
-                        }}
-                    />
-                </div>
+                <EditorSection theme={theme} code={code} setCode={setCode} language={language} fontSize={fontSize} />
 
                 {/* Input + Output */}
-                <div className="w-full md:w-1/2 py-6 pb-12 md:p-0 md:h-[-webkit-fill-available]">
-                    {/* Stdin */}
-                    <div className="py-6 md:p-0 md:pb-6 h-[40%]">
-                        <div className="py-6 flex-1 flex flex-col p-4 border border-gray-400 dark:border-[#fff8] 
-                    rounded-md bg-white dark:bg-gray-800 shadow-lg">
-                            <h2 className="font-semibold mb-2">Input (stdin)</h2>
-                            <textarea
-                                className="flex-1 w-full p-2 border border-gray-300 dark:border-[#fff1] rounded-md bg-gray-100 dark:bg-gray-900 dark:text-white resize-none overflow-auto min-h-0"
-                                placeholder="Enter input data here..."
-                                value={stdin}
-                                onChange={(e) => setStdin(e.target.value)}
-                            />
-                        </div>
-                    </div>
+                <div className={`w-full md:w-1/2 py-6 pb-12 md:p-0 
+                    md:h-[-webkit-fill-available]`}>
 
+                    <InputSection stdin={stdin} setStdin={setStdin} />
 
-                    {/* Output */}
-                    <div className="h-[60%]">
-                        <div className="h-full flex-1 p-4 border border-gray-400 dark:border-[#fff8] rounded-md bg-white dark:bg-gray-800 overflow-auto max-h-[50vh] shadow-lg">
-                            <h2 className="font-semibold mb-2">Output</h2>
-                            <pre className="whitespace-pre-wrap">{output}</pre>
-                        </div>
-                    </div>
+                    <Output output={output} />
 
                 </div>
             </div>

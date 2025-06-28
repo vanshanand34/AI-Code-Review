@@ -81,7 +81,7 @@ const parseReplicateAiResponse = async (
 
     const replicateAiResponse = await getReplicateAiReview(code, language, description);
 
-    if (!replicateAiResponse) {
+    if (!replicateAiResponse || typeof replicateAiResponse == 'object') {
         return undefined;
     }
 
@@ -100,6 +100,7 @@ const parseReplicateAiResponse = async (
 export async function getAIReview(
     code: string, language: string, description: string
 ): Promise<CodeReviewResponse> {
+
     if (!REPLICATE_API_TOKEN) {
         throw new Error("Replicate API token is not configured");
     }
@@ -117,6 +118,7 @@ export async function getAIReview(
         if (CURRENT_AI_MODEL == "GROQ") {
             // If replicate limit exceeds, switch to groq API
             res = await parseGroqAiResponse(code, language, description);
+            res.refactoredCode = extractRefactoredCode(res.refactoredCode, language);
 
         } else {
             const response = await parseReplicateAiResponse(code, language, description);
@@ -162,4 +164,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             { status: 500 }
         );
     }
+}
+
+const extractRefactoredCode = (refactoredCode: string, langName: string) : string => {
+    // Main refactored code is in following format:
+    //  ```<langName>   <refactoredCode>  ```
+    
+    const pattern: RegExp = /```\w*(.*)```/s;
+    let patternMatch = refactoredCode.match(pattern);
+
+    if (patternMatch?.length == 2) {
+        return patternMatch[1];
+    }
+
+    return refactoredCode;
 }

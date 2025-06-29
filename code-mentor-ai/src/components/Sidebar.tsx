@@ -35,8 +35,8 @@ function Sidebar(
     >
       <div
         className="min-h-full w-[65vw] sm:w-[45vw] lg:w-[35vw] 
-       rounded-xl shadow-gray-600 dark:shadow-black shadow-lg
-       bg-[#ffffff] dark:bg-[#1c1c1c]"
+       rounded-xl shadow-[#313131] dark:shadow-black shadow-lg
+       bg-[#ffffff] dark:bg-[#262626]"
         id="sidebar-body"
       >
 
@@ -61,7 +61,7 @@ function Sidebar(
                 >
                   <div
                     className="rounded-lg text-sm sm:text-base w-full px-4 py-4 
-                                        hover:bg-[#e4e4e4] dark:hover:bg-[#29292969] cursor-pointer"
+                                        hover:bg-[#e4e4e4] dark:hover:bg-[#1c1c1ca0] cursor-pointer"
                   >
                     {component.componentText}
                   </div>

@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, FormEvent, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-java';
 import 'prismjs/components/prism-typescript';
-// import 'prism-themes/themes/prism-vsc-dark-plus.css';
+
 import { CodeReviewRequest, CodeReviewResponse } from '../Review';
 import { Copy } from 'lucide-react';
 import "../../globals.css";
@@ -21,7 +21,8 @@ const ReviewResult = (
     const copyIconRef = useRef<HTMLDivElement>(null);
 
     function handleCopyCode(reviewResult: CodeReviewResponse) {
-        window.navigator.clipboard.writeText(reviewResult.refactoredCode);
+        if (window.isSecureContext === false) return;
+        window?.navigator?.clipboard?.writeText(reviewResult.refactoredCode);
         copyIconRef.current?.classList.add('hover:text-green-500', 'scale-125', 'text-green-500');
         setTimeout(() => {
             copyIconRef.current?.classList.remove('hover:text-green-500', 'scale-125', 'text-green-500');
@@ -61,8 +62,7 @@ const ReviewResult = (
                             <div className=' text-gray-600 dark:text-gray-300 text-sm sm:text-base'>
                                 {
                                     reviewResult.suggestions.length > 0 ? (
-                                        <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 
-                                    text-xs sm:text-sm md:text-base">
+                                        <ul className="list-disc list-inside text-sm sm:text-base">
                                             {reviewResult.suggestions.map((s, i) => (
                                                 <li key={i} className='p-2'>{s}</li>
                                             ))}
@@ -85,8 +85,7 @@ const ReviewResult = (
                                 {
                                     reviewResult.potentialBugs.length > 0 ?
                                         (
-                                            <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 
-                                    text-xs sm:text-sm md:text-base">
+                                            <ul className="list-disc list-inside text-sm sm:text-base">
                                                 {reviewResult.potentialBugs.map((b, i) => (
                                                     <li key={i} className='p-2'>{b}</li>
                                                 ))}
@@ -143,15 +142,7 @@ const ReviewResult = (
 
 
                         <div className={`px-2 text-[13px]/[21px_!important] sm:text-xs/5 md:text-[14px]/[21px] text-gray-300 ${BodyBg}`}>
-                            <pre className='line-numbers'
-                                style={{
-                                    marginTop: '0',
-                                    padding: '10px',
-                                    borderRadius: '5px',
-                                    overflowX: 'auto',
-                                    maxWidth: '100%'
-                                }}
-                            >
+                            <pre className='line-numbers mt-0 p-3 rounded-md overflow-x-auto max-w-full'                            >
                                 <code
                                     className={`language-${formData?.language || 'javascript'} line-numbers 
                                         `}

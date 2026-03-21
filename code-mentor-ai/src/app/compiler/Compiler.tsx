@@ -1,11 +1,10 @@
 'use client';
 import { useState, useEffect } from "react";
-import Editor, { useMonaco } from "@monaco-editor/react";
+import { useMonaco } from "@monaco-editor/react";
 import axios from "axios";
 import { LANGUAGES, DEFAULT_CODE_SNIPPETS } from "@/components/constants";
 import CustomSelect from "@/components/CustomSelect";
 import { useTheme } from "next-themes";
-import { BodyBg, codeSectionBodyStyle, codeSectionFont, codeSectionHeaderStyle } from "@/components/styleConstants";
 import Output from "./components/OutputSection";
 import InputSection from "./components/InputSection";
 import EditorSection from "./components/Editor";
@@ -25,12 +24,17 @@ function App() {
     }, [language]);
 
     function getResponsiveFontSize() {
-        if (typeof window == "undefined") return 16;
-        const width = window.innerWidth;
-        if (width < 500) return 13;
-        if (width < 800) return 14;
-        if (width < 1200) return 15;
-        return 16;
+        try {
+            if (typeof window == "undefined") return 16;
+            const width = window.innerWidth;
+            if (width < 500) return 13;
+            if (width < 800) return 14;
+            if (width < 1200) return 15;
+            return 16;
+        } catch (e)  {
+            console.error("Error in getResponsiveFontSize :  " + e)
+            return 15;
+        }
     }
 
     const monaco = useMonaco();
@@ -80,6 +84,7 @@ function App() {
                 />
 
                 <button
+                    type="button"
                     className="px-3 md:px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 
                     cursor-pointer flex items-center justify-center md:gap-2 shadow"
                     onClick={handleRun}

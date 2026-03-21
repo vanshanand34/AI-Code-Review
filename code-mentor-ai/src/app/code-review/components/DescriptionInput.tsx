@@ -30,7 +30,7 @@ function CodeDescriptionInput({ formData, setFormData }: CodeEditorProps) {
                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                         className={`w-full h-full resize-none min-h-[200px] p-4
                             focus:outline-none focus:ring-0 focus:ring-blue-500
-                            text-xs sm:text-sm md:text-base ${BodyBg}`}
+                            text-sm sm:text-base ${BodyBg}`}
                         placeholder="Enter a description of your code..."
                         required
                     />

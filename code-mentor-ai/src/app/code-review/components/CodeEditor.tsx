@@ -38,10 +38,8 @@ function CodeEditor({ formData, setFormData }: CodeEditorProps) {
                 Code
             </label>
 
-            <div className="grid grid-cols-1 text-white min-h-[70vh] max-w-full overflow-x-auto"
-                style={{
-                    scrollbarWidth: "thin"
-                }}
+            <div className="grid grid-cols-1 text-white min-h-[70vh] max-w-full 
+                overflow-x-auto [scrollbar-width:thin]"
             >
                 <Editor
                     value={formData.code}
@@ -51,8 +49,8 @@ function CodeEditor({ formData, setFormData }: CodeEditorProps) {
                     }
                     padding={16}
                     className={`focus:outline-0 outline-0 focus:border-0 focus:ring-0 rounded-b-md
-                    text-[13px]/[21px] sm:text-xs/5 md:text-[14px]/[22px]  font-mono min-h-[70vh] 
-                    language-${formData.language} overflow-auto min-w-full w-max`}
+                    text-[13px]/[21px] sm:text-xs/5 md:text-[14px]/[22px] font-mono min-h-[70vh] 
+                    language-${formData.language} overflow-auto min-w-full w-max p-3`}
                     placeholder="Enter your code here..."
                     style={{
                         color: isDarkMode ? 'white' : 'black',
